@@ -4,6 +4,16 @@ Exploration of dotnet `System.Numerics`.
 
 Running the benchmarks: `dotnet run --configuration Release`
 
+## Questions
+
+- Does the size of the array / vector matter
+- How does float32 compare to float
+
+## TODO
+
+- [ ] Parameterize Benchmarks (ex: test various sizes)
+- [ ] Handle vectors that are not multiples of 4
+
 ## 2024-08-31
 
 `Distance.fs`: computing the euclidean distance between 2 vectors. Using dot 
