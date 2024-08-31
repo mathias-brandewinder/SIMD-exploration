@@ -7,7 +7,7 @@ Running the benchmarks: `dotnet run --configuration Release`
 ## 2024-08-31
 
 `Distance.fs`: computing the euclidean distance between 2 vectors. Using dot 
-product in the SIMD take 2 produced a massive speedup:  
+product + `ReadOnlySpan` in the SIMD take 2 produced a massive speedup:  
 
 ```
 | Method           | Mean        | Error     | StdDev    | Ratio |
