@@ -5,6 +5,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Distance.fs" />
+    <Compile Include="Average.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
   <ItemGroup>

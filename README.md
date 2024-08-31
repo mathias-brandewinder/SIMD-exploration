@@ -17,3 +17,13 @@ product + `ReadOnlySpan` in the SIMD take 2 produced a massive speedup:
 | simdV1           |  8,186.7 us | 131.10 us | 116.22 us |  0.27 |
 | simdV2           |    741.5 us |  21.53 us |  63.49 us |  0.02 |
 ```
+
+`Average.fs`: computing the average of a vector. Modest improvement.
+
+```
+| Method  | Mean       | Error    | StdDev   | Ratio | RatioSD |
+|-------- |-----------:|---------:|---------:|------:|--------:|
+| classic |   726.2 us |  3.97 us |  3.71 us |  1.00 |    0.01 |
+| simdV1  | 3,828.5 us | 62.38 us | 58.35 us |  5.27 |    0.08 |
+| simdV2  |   310.0 us |  5.23 us |  4.89 us |  0.43 |    0.01 |
+```
