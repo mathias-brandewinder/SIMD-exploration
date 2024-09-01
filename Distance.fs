@@ -54,7 +54,7 @@ module Distance =
         let rng = Random 0
         // Sample vector size
         // Needs to be a multiple of 4 at the moment.
-        let size = 1_000_000
+        let size = 8 //40_000
 
         let v1 = Array.init size (fun _ -> rng.NextDouble())
         let v2 = Array.init size (fun _ -> rng.NextDouble())
