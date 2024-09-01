@@ -3,6 +3,7 @@
 Exploration of dotnet `System.Numerics`.
 
 Running the benchmarks: `dotnet run --configuration Release`
+Running the tests: `dotnet test`
 
 ## Questions
 
