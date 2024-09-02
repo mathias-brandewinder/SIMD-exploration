@@ -24,5 +24,6 @@ module Tests =
                 let benchmark = Average.Benchmark()
                 Expect.isTrue (equalWithin 6 (benchmark.classic()) (benchmark.simdV1())) "classic and SIMD v1"
                 Expect.isTrue (equalWithin 6 (benchmark.classic()) (benchmark.simdV2())) "classic and SIMD v2"
+                Expect.isTrue (equalWithin 6 (benchmark.classic()) (benchmark.simdV3())) "classic and SIMD v3"
                 }
             ]
