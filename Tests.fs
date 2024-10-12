@@ -18,6 +18,8 @@ module Tests =
                 Expect.isTrue (benchmark.classic() = benchmark.classicOptimized()) "classic = optimized classic"
                 Expect.isTrue (equalWithin 6 (benchmark.classic()) (benchmark.simdV1())) "classic and SIMD v1"
                 Expect.isTrue (equalWithin 6 (benchmark.classic()) (benchmark.simdV2())) "classic and SIMD v2"
+                Expect.isTrue (equalWithin 6 (benchmark.classic()) (benchmark.simdV3())) "classic and SIMD v3"
+                Expect.isTrue (equalWithin 6 (benchmark.classic()) (benchmark.full())) "classic and SIMD with arbitrary length"
                 }
 
             test "average" {

@@ -75,6 +75,31 @@ module Distance =
                 total <- total + Vector.Dot(diff, diff)
             sqrt total
 
+        // Same as take3, but handle the case of arrays that are not clean
+        // multiples of Vector<float>.Count.
+        let full (v1: float[], v2: float[]) =
+
+            let remainingBlocks = v1.Length % Vector<float>.Count
+            let fullBlocks =
+                (v1.Length - remainingBlocks) / Vector<float>.Count
+
+            let s1 = MemoryMarshal.Cast<float, Vector<float>>(ReadOnlySpan(v1))
+            let s2 = MemoryMarshal.Cast<float, Vector<float>>(ReadOnlySpan(v2))
+
+            let mutable total = 0.0
+            for i in 0 .. (fullBlocks - 1) do
+                let v1 = s1.[i]
+                let v2 = s2.[i]
+                let diff = v1 - v2
+                total <- total + Vector.Dot(diff, diff)
+
+            if remainingBlocks > 0
+            then
+                for i in (v1.Length - remainingBlocks) .. (v1.Length - 1) do
+                    total <- total + (pown (v1.[i] - v2.[i]) 2)
+
+            sqrt total
+
     type Benchmark () =
 
         let rng = Random 0
@@ -105,3 +130,7 @@ module Distance =
         [<Benchmark>]
         member this.simdV3 () =
             SIMD.take3 (v1, v2)
+
+        [<Benchmark>]
+        member this.full () =
+            SIMD.full (v1, v2)

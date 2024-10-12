@@ -7,8 +7,8 @@ module App =
     [<EntryPoint>]
     let main (args: string []) =
 
-        // BenchmarkRunner.Run<Distance.Benchmark>()
-        // |> ignore
+        BenchmarkRunner.Run<Distance.Benchmark>()
+        |> ignore
 
         // BenchmarkRunner.Run<Average.Benchmark>()
         // |> ignore
@@ -19,7 +19,7 @@ module App =
         // BenchmarkRunner.Run<LinearCombinations.Benchmark>()
         // |> ignore
 
-        BenchmarkRunner.Run<LogLikelihood.Benchmark>()
-        |> ignore
+        // BenchmarkRunner.Run<LogLikelihood.Benchmark>()
+        // |> ignore
 
         0
