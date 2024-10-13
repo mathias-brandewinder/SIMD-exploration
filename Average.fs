@@ -16,29 +16,7 @@ module Average =
 
     module SIMD =
 
-        // TODO handle cleanly sizes that are not multiples of 4
-        let take1 (v: float[]) =
-            let size = v.Length
-            let vSize = Vector<float>.Count
-            let mutable total = 0.0
-            for i in 0 .. (size - 1) / vSize do
-                let s = vSize * i
-                let v = Vector<float>(v.[s .. s + vSize - 1])
-                total <- total + Vector.Sum(v)
-            total / float size
-
-        let take2 (v: float[]) =
-            let size = v.Length
-            let vSize = Vector<float>.Count
-            let v = ReadOnlySpan v
-            let mutable total = 0.0
-            for i in 0 .. (size - 1) / vSize do
-                let s = vSize * i
-                let v = Vector<float>(v.Slice(s, vSize))
-                total <- total + Vector.Sum(v)
-            total / float size
-
-        let take3 (v: float[]) =
+        let average (v: float[]) =
 
             let vectors = MemoryMarshal.Cast<float, Vector<float>>(ReadOnlySpan v)
             let mutable total = 0.0
@@ -62,13 +40,5 @@ module Average =
             Classic.naive v
 
         [<Benchmark>]
-        member this.simdV1 () =
-            SIMD.take1 v
-
-        [<Benchmark>]
-        member this.simdV2 () =
-            SIMD.take2 v
-
-        [<Benchmark>]
-        member this.simdV3 () =
-            SIMD.take3 v
+        member this.simd () =
+            SIMD.average v
