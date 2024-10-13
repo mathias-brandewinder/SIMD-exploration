@@ -69,6 +69,48 @@ module MoveTowards =
                     result.[i * blockSize + j] <- movedTo.Item j
             result
 
+        let add (v1: float [], v2: float []) =
+
+            let result = Array.zeroCreate<float> v1.Length
+            let blockSize = Vector<float>.Count
+
+            let s1 = MemoryMarshal.Cast<float, Vector<float>>(ReadOnlySpan(v1))
+            let s2 = MemoryMarshal.Cast<float, Vector<float>>(ReadOnlySpan(v2))
+
+            for i in 0 .. (s1.Length - 1) do
+                let sum = s1.[i] + s2.[i]
+                sum.CopyTo(result, i * blockSize)
+            result
+
+        let sub (v1: float [], v2: float []) =
+
+            let result = Array.zeroCreate<float> v1.Length
+            let blockSize = Vector<float>.Count
+
+            let s1 = MemoryMarshal.Cast<float, Vector<float>>(ReadOnlySpan(v1))
+            let s2 = MemoryMarshal.Cast<float, Vector<float>>(ReadOnlySpan(v2))
+
+            for i in 0 .. (s1.Length - 1) do
+                let diff = s1.[i] - s2.[i]
+                diff.CopyTo(result, i * blockSize)
+            result
+
+        let mult (scalar: float, v: float []) =
+
+            let result = Array.zeroCreate<float> v.Length
+            let blockSize = Vector<float>.Count
+
+            let s = MemoryMarshal.Cast<float, Vector<float>>(ReadOnlySpan(v))
+
+            for i in 0 .. (s.Length - 1) do
+                let multiplied = scalar * s.[i]
+                multiplied.CopyTo(result, i * blockSize)
+            result
+
+        let take4  (origin: float[], target: float[], coeff: float) =
+
+            sub (mult (1.0 - coeff, origin), target)
+
     type Benchmark () =
 
         let rng = Random 0
@@ -96,3 +138,7 @@ module MoveTowards =
         [<Benchmark>]
         member this.simdV3 () =
             SIMD.take3 (origin, target, coeff)
+
+        [<Benchmark>]
+        member this.simdV4 () =
+            SIMD.take4 (origin, target, coeff)
